@@ -8,3 +8,4 @@ controller_templates:
    project: Red Hat Supported Cloud Playbooks
    playbook: hello_cloud.yml
    job_tags: cloud
+   labels: cloud
