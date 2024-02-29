@@ -4,13 +4,12 @@ controller_workflows:
     description: Simple workflow to create a VM
     organization: Default
     simplified_workflow_nodes:
-      - identifier: node101
+      - identifier: Create Keypair
         unified_job_template: Cloud / Create Keypair
         always_nodes:
-          - node201
-      - identifier: node201
+          - Create VM
+          - Create Firewall Rules
+      - identifier: Create VM
         unified_job_template: Cloud / Create VM
-        always_nodes:
-          - node301
-      - identifier: node301
+      - identifier: Create Firewall Rules
         unified_job_template: Cloud / Create Firewall Rules
