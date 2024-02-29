@@ -6,11 +6,11 @@ controller_workflows:
     simplified_workflow_nodes:
       - identifier: node101
         unified_job_template: Cloud / Create Keypair
-        success_nodes:
+        always_nodes:
           - node201
       - identifier: node201
         unified_job_template: Cloud / Create VM
-        success_nodes:
+        always_nodes:
           - node301
       - identifier: node301
         unified_job_template: Cloud / Create Firewall Rules
