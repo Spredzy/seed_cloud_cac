@@ -6,10 +6,11 @@ controller_workflows:
     simplified_workflow_nodes:
       - identifier: Create Keypair
         unified_job_template: Cloud / Create Keypair
-        always_nodes:
-          - Create VM
-          - Create Firewall Rules
-      - identifier: Create VM
+        success_nodes:
+          - "Create VM"
+      - identifier: "Create VM"
         unified_job_template: Cloud / Create VM
-      - identifier: Create Firewall Rules
+        success_nodes:
+          - "Create Firewall Rules"
+      - identifier: "Create Firewall Rules"
         unified_job_template: Cloud / Create Firewall Rules
