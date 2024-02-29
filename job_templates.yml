@@ -1,6 +1,24 @@
 ---
 controller_templates:
- - name: Cloud / Hello Cloud
+ - name: Cloud / Create Keypair
+   execution_environment: seed_ee
+   instance_groups:
+     - default
+   inventory: Demo Inventory
+   project: Red Hat Supported Cloud Playbooks
+   playbook: hello_cloud.yml
+   job_tags: cloud
+   labels: cloud
+ - name: Cloud / Create VM
+   execution_environment: seed_ee
+   instance_groups:
+     - default
+   inventory: Demo Inventory
+   project: Red Hat Supported Cloud Playbooks
+   playbook: hello_cloud.yml
+   job_tags: cloud
+   labels: cloud
+ - name: Cloud / Create Firewall Rules
    execution_environment: seed_ee
    instance_groups:
      - default
