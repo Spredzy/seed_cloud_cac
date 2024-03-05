@@ -53,7 +53,7 @@ controller_workflows:
     survey_enabled: true
     survey: "{{ lookup('template', 'template_surveys/azure_survey.json') | regex_replace('\\n', '') }}"
     labels: Azure
-    workflow_nodes:
+    simplified_workflow_nodes:
       - identifier: Install Arc Agent
         unified_job_template: Cloud / Create VM
         success_nodes:
