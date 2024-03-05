@@ -4,7 +4,7 @@ controller_workflows:
     description: Simple workflow to create a VM
     organization: Default
     simplified_workflow_nodes:
-      - identifier: Create Keypair
+      - identifier: "Create Keypair"
         unified_job_template: Cloud / Create Keypair
         success_nodes:
           - "Create VM"
@@ -20,17 +20,17 @@ controller_workflows:
     organization: Default
     labels: Azure
     simplified_workflow_nodes:
-      - identifier: Create VM
+      - identifier: "Create VM"
         unified_job_template: Cloud / Create VM
         success_nodes:
-          - Run DNF Update
+          - "Run DNF Update"
 
-      - identifier: Run DNF Update
+      - identifier: "Run DNF Update"
         unified_job_template: Cloud / Create VM
         always_nodes:
-            - identifier: Delete VM
+            - "Delete VM"
 
-      - identifier: Delete VM
+      - identifier: "Delete VM"
         all_parents_must_converge: false
         unified_job_template: Cloud / Create VM
 
@@ -39,12 +39,12 @@ controller_workflows:
     organization: Default
     labels: Azure
     simplified_workflow_nodes:
-      - identifier: Create Log Analytics Workspace
+      - identifier: "Create Log Analytics Workspace"
         unified_job_template: Cloud / Create VM
         success_nodes:
-            - Install Log Analytics Agent
+            - "Install Log Analytics Agent"
 
-      - identifier: Install Log Analytics Agent
+      - identifier: "Install Log Analytics Agent"
         unified_job_template: Cloud / Create VM
 
   - name: Cloud / Azure / Arc Log Migration
@@ -54,7 +54,7 @@ controller_workflows:
     survey: "{{ lookup('template', 'template_surveys/azure_survey.json') | regex_replace('\\n', '') }}"
     labels: Azure
     simplified_workflow_nodes:
-      - identifier: Install Arc Agent
+      - identifier: "Install Arc Agent"
         unified_job_template: Cloud / Create VM
         success_nodes:
           - "Replace Log Analytics with Azure Monitor"
