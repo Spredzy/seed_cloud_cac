@@ -2,3 +2,5 @@
 controller_labels:
   - name: cloud
     organization: Default
+  - name: Azure
+    organization: Default

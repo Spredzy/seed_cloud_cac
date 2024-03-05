@@ -14,3 +14,56 @@ controller_workflows:
           - "Create Firewall Rules"
       - identifier: "Create Firewall Rules"
         unified_job_template: Cloud / Create Firewall Rules
+
+  - name: Cloud / Azure / Ephemeral VM Workflow
+    description: Create a workflow to create a RHEL VM, run an automation against the VM, and then destroy the VM
+    organization: Default
+    labels: Azure
+    simplified_workflow_nodes:
+      - identifier: Create VM
+        unified_job_template: Cloud / Create VM
+        success_nodes:
+          - Run DNF Update
+
+      - identifier: Run DNF Update
+        unified_job_template: Cloud / Create VM
+        always_nodes:
+            - identifier: Delete VM
+
+      - identifier: Delete VM
+        all_parents_must_converge: false
+        unified_job_template: Cloud / Create VM
+
+  - name: Cloud / Azure / Install Log Analytics Workflow
+    description: Create a lot analytics workspace and install the log analytics agent on attached VMs.
+    organization: Default
+    labels: Azure
+    simplified_workflow_nodes:
+      - identifier: Create Log Analytics Workspace
+        unified_job_template: Cloud / Create VM
+        success_nodes:
+            - Install Log Analytics Agent
+
+      - identifier: Install Log Analytics Agent
+        unified_job_template: Cloud / Create VM
+
+  - name: Cloud / Azure / Arc Log Migration
+    description: Migrate hosts from Azure Log Analytics Agent to Azure Monitor Agent with Azure Arc
+    survey_enabled: true
+    survey: "{{ lookup('template', 'template_surveys/azure_survey.json') | regex_replace('\\n', '') }}"
+    labels: Azure
+    workflow_nodes:
+      - identifier: Install Arc Agent
+        unified_job_template: Cloud / Create VM
+        success_nodes:
+          - Replace Log Analytics with Azure Monitor
+
+      - identifier: Replace Log Analytics with Azure Monitor
+        unified_job_template: Cloud / Create VM
+        success_nodes:
+          - Uninstall Log Analytics Agent
+
+      - identifier: Uninstall Log Analytics Agent
+        all_parents_must_converge: false
+        unified_job_template: Cloud / Create VM
+
