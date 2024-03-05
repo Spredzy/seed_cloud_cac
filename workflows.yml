@@ -49,6 +49,7 @@ controller_workflows:
 
   - name: Cloud / Azure / Arc Log Migration
     description: Migrate hosts from Azure Log Analytics Agent to Azure Monitor Agent with Azure Arc
+    organization: Default
     survey_enabled: true
     survey: "{{ lookup('template', 'template_surveys/azure_survey.json') | regex_replace('\\n', '') }}"
     labels: Azure
@@ -56,14 +57,14 @@ controller_workflows:
       - identifier: Install Arc Agent
         unified_job_template: Cloud / Create VM
         success_nodes:
-          - Replace Log Analytics with Azure Monitor
+          - "Replace Log Analytics with Azure Monitor"
 
-      - identifier: Replace Log Analytics with Azure Monitor
+      - identifier: "Replace Log Analytics with Azure Monitor"
         unified_job_template: Cloud / Create VM
         success_nodes:
-          - Uninstall Log Analytics Agent
+          - "Uninstall Log Analytics Agent"
 
-      - identifier: Uninstall Log Analytics Agent
+      - identifier: "Uninstall Log Analytics Agent"
         all_parents_must_converge: false
         unified_job_template: Cloud / Create VM
 
